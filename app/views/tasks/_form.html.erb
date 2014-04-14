@@ -1,0 +1,21 @@
+<%= form_for @task, remote: true do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :user %>
+  <%= f.collection_select :user_id, @project.users, :id, :name, prompt: true %>
+
+  Dates should be automatically filled.<br>
+
+  <%= f.label :start_date %>
+  <%= f.date_select :start_date %>
+
+  <%= f.label :end_date %>
+  <%= f.date_select :end_date %>
+
+  <%= f.hidden_field :client_uri, :value => @task.client_uri %>
+
+  <%= f.submit "Create new task", class: "btn btn-large btn-primary" %>
+<% end %>

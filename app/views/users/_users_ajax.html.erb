@@ -1,0 +1,5 @@
+<% if users.count > 0 %>
+	<% users.each do |user| %>
+		<%= render 'user_ajax', user: user %>
+	<% end %>
+<% end %>

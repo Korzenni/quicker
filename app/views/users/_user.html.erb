@@ -1,0 +1,8 @@
+<li>
+	<% if user.name %>
+		<%= user.name %>
+	<% else %>
+		<%= user.email %>
+	<% end %>
+	<%= link_to "Edit", edit_user_path(user, :client_uri => params[:id]), remote: true, class: "btn btn-primary" %>
+</li>

@@ -1,0 +1,29 @@
+<h1><%= @project.name %></h1>
+
+<% if @project.is_admin?(@current_user) %>
+
+	<%= link_to "Add user", new_user_path(:client_uri => params[:id]), remote: true, class: "btn btn-primary" %>
+
+<% end %>
+
+<ul class="users-list">
+	<%= render '/users/users', users: @users %>
+</ul>
+
+<%= link_to "Add task (trigger by js)", new_task_path(:client_uri => params[:id]), remote: true, class: "btn btn-primary" %>
+
+<div class="modal fade user-edit-modal user-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content user-content">
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade task-edit-modal task-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content task-content">
+      
+    </div>
+  </div>
+</div>
