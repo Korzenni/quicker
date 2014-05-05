@@ -12,6 +12,11 @@
 
 <%= link_to "Add task (trigger by js)", new_task_path(:client_uri => params[:id]), remote: true, class: "btn btn-primary" %>
 
+<!-- CANVAS FOR TASKS -->
+<div id="quickerCanvasDiv">
+  <canvas id="quickerCanvas" width="1000" height="400"></canvas>
+</div>
+
 <div class="modal fade user-edit-modal user-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content user-content">
