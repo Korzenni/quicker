@@ -7,13 +7,9 @@
   <%= f.label :user %>
   <%= f.collection_select :user_id, @project.users, :id, :name, prompt: true %>
 
-  Dates should be automatically filled.<br>
+  <%= f.hidden_field :start_date, :value => params[:start_date] %>
 
-  <%= f.label :start_date %>
-  <%= f.date_select :start_date %>
-
-  <%= f.label :end_date %>
-  <%= f.date_select :end_date %>
+  <%= f.hidden_field :end_date, :value => params[:end_date] %>
 
   <%= f.hidden_field :client_uri, :value => @task.client_uri %>
 

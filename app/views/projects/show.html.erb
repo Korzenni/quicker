@@ -10,11 +10,13 @@
 	<%= render '/users/users', users: @users %>
 </ul>
 
-<%= link_to "Add task (trigger by js)", new_task_path(:client_uri => params[:id]), remote: true, class: "btn btn-primary" %>
+<%= link_to "Add task (trigger by js)", new_task_path(:client_uri => params[:id], :start_date => DateTime.now.to_date, :end_date => DateTime.now.to_date), remote: true, class: "btn btn-primary", id: "add_new_task_link" %>
+
+<%= link_to "Show tasks", tasks_path(:client_uri => params[:id], :start_date => 2.days.ago.to_date, :end_date => 7.days.from_now.to_date), remote: true, class: "btn btn-primary", id: "show_tasks_link" %>
 
 <!-- CANVAS FOR TASKS -->
 <div id="quickerCanvasDiv">
-  <canvas id="quickerCanvas" width="1000" height="400"></canvas>
+  <canvas id="quickerCanvas"></canvas>
 </div>
 
 <div class="modal fade user-edit-modal user-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

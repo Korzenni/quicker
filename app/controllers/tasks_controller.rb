@@ -15,6 +15,18 @@ class TasksController < ApplicationController
     end
   end
 
+  def index
+    @current_user = User.find_by_uri params[:client_uri] # may be exposed
+    @project = @current_user.project
+    @tasks = @project.tasks
+    @start_date = params[:start_date]
+    @end_date = params[:end_date]
+    
+    respond_to do |format|
+      format.js { render 'tasks' }
+    end
+  end
+
   def create
   	@current_user = User.find_by_uri params[:task][:client_uri]
   	@project = @current_user.project
@@ -47,6 +59,6 @@ class TasksController < ApplicationController
   private
 
   	def task_params
-  		params.require(:task).permit(:name, :user_id, :project_id, :client_uri, :start_date, :end_date) 
+  		params.require(:task).permit(:name, :user_id, :project_id, :client_uri, :start_date, :end_date) if params[:task]
   	end
 end

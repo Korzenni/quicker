@@ -1,0 +1,29 @@
+var numberOfTasks = <%= @tasks.count %>
+
+numberOfRows = numberOfTasks;
+numberOfColumns = 10;
+columnsDates = <%= raw((@start_date..@end_date).map { |day| day }) %>; // gets the dates for the columns
+
+cellWidth = $("#quickerCanvas").width() / numberOfColumns;
+cellHeight = 100; // fixed height of the task
+$("#quickerCanvasDiv").height(numberOfRows*cellHeight);
+
+quickerCanvas.width = $("#quickerCanvasDiv").width();
+quickerCanvas.height = $("#quickerCanvasDiv").height();
+
+quickerContext.clearRect(0, 0, quickerCanvas.width, quickerCanvas.height);
+drawCanvas();
+
+//console.log(numberOfRows);
+//console.log($("#quickerCanvas").height());
+
+for (var i = 0; i < numberOfTasks; i++)
+{
+	//actualTask = new Task;
+	// check if start_date is in range of (@start_date - @end_date) and if not start from @start_date
+	// check if end_date is in range of (@start_date - @end_date) and if not end on @end_date
+	// for start_date to end_date
+		// fillAndCreateCell(currentCol)
+	// end
+	//createdTasks.push(actualTask);
+}

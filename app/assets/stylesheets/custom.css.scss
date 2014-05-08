@@ -37,6 +37,10 @@ input {
   @extend .error;
 }
 
+#add_new_task_link {
+  display: none;
+}
+
 /* footer */
 .footer {
 	margin-top: 50px;
@@ -46,8 +50,13 @@ input {
 
 /* canvas */
 #quickerCanvasDiv {
-  width: 1000px;
-    height:400px;
-    margin: 0px auto;
-    border: 1px solid red;
+  width: 1002px;
+  height: 202px;
+  margin: 0px auto;
+  border: 1px solid red;
+}
+
+#quickerCanvas {
+  height: 100%;
+  width: 100%;
 }
