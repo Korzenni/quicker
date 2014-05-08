@@ -1,6 +1,6 @@
 var numberOfTasks = <%= @tasks.count %>
 
-numberOfRows = numberOfTasks;
+numberOfRows = numberOfTasks + 1;
 numberOfColumns = 10;
 columnsDates = <%= raw((@start_date..@end_date).map { |day| day }) %>; // gets the dates for the columns
 
