@@ -347,13 +347,14 @@ $(document).ready(function() {
   		isDragged = false;
 	});
 
-	function getAllTasksFromAPI(UserUri)
+
+	function getAllTasksFromAPI(UserUri, StartDate, EndDate)
 	{
 		$.ajax({
 			type: "GET",
 			dataType: "json",
 			url: "http://localhost:3000/tasks",
-			data: { client_uri: UserUri }
+			data: { client_uri: UserUri, start_date: StartDate, end_date: EndDate }
 		})
 		.done(function(response) {
 			for(var i = 0; i < response.length; i++)
@@ -371,5 +372,5 @@ $(document).ready(function() {
 	}
 
 	updateUserUri();
-	getAllTasksFromAPI(userUri);
+	getAllTasksFromAPI(userUri, "2014-05-10", "2014-05-18");
 });
