@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
+  expose(:current_user) { User.find_by_uri params[:client_uri] }
+  expose(:project) { current_user.project }
+  expose(:tasks) { project.tasks }
+  expose(:task)
+
   def new
-  	@task = Task.new
-    @task.client_uri = params[:client_uri]
-    @current_user = User.find_by_uri params[:client_uri]
-  	@project = @current_user.project
-  	if @project.is_admin?(@current_user)
+    task.client_uri = params[:client_uri]
+  	if project.is_admin?(current_user)
   		respond_to do |format|
     		format.js
     	end
@@ -16,25 +18,19 @@ class TasksController < ApplicationController
   end
 
   def index
-    @current_user = User.find_by_uri params[:client_uri] # may be exposed
-    @project = @current_user.project
-    @tasks = @project.tasks
-    @start_date = params[:start_date]
-    @end_date = params[:end_date]
-    
     respond_to do |format|
-      format.js { render 'tasks' }
+      # format.js { render 'tasks' }
+      format.json { render json: tasks }
     end
   end
 
   def create
-  	@current_user = User.find_by_uri params[:task][:client_uri]
-  	@project = @current_user.project
-  	if(@project.is_admin?(@current_user))
-  		@task = Task.new task_params
-  		@project.add_task(@task)
-  		if @task.save
-  			@tasks = @project.tasks
+  	current_user = User.find_by_uri params[:task][:client_uri]
+  	project = current_user.project
+  	if(project.is_admin?(@current_user))
+  		project.add_task(@task)
+  		if task.save
+  			tasks = project.tasks
 	      respond_to do |format|
 		     	format.js
 		    end

@@ -5,6 +5,6 @@ FactoryGirl.define do
     name "Example name"
     email "Example email"
     uri "my-uri"
-    project_id 1
+    project
   end
 end
