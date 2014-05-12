@@ -8,7 +8,15 @@ class TasksController < ApplicationController
   end
 
   expose(:project) { current_user.project }
-  expose(:tasks) { project.tasks }
+  
+  expose(:tasks) do
+    if params.has_key?(:start_date) and params.has_key?(:end_date)
+      project.tasks.where("end_date > :start_date AND start_date < :end_date", { start_date: params[:start_date], end_date: params[:end_date] } )
+    else
+      project.tasks
+    end
+  end
+
   expose(:task)
 
   def new
@@ -25,6 +33,11 @@ class TasksController < ApplicationController
   end
 
   def index
+    @start_date = params[:start_date]
+    @end_date = params[:end_date]
+
+
+
     respond_to do |format|
       # format.js { render 'tasks' }
       format.json { render json: tasks }
@@ -38,8 +51,6 @@ class TasksController < ApplicationController
       
       task.project = project
       task.client_uri = params[:task][:client_uri]
-
-      logger.debug task.attributes.inspect
       
   		if task.save
   			tasks = project.tasks

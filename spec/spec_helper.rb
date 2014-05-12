@@ -44,6 +44,7 @@ RSpec.configure do |config|
   config.include Capybara::DSL
 
   config.before(:each) do
+    DatabaseCleaner.clean
     DatabaseCleaner.start
   end
 
