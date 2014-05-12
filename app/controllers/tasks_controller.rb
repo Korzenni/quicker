@@ -1,5 +1,12 @@
 class TasksController < ApplicationController
-  expose(:current_user) { User.find_by_uri params[:client_uri] }
+  expose(:current_user) do
+    if params.has_key?(:client_uri)
+      User.find_by_uri params[:client_uri]
+    else
+      User.find_by_uri params[:task][:client_uri]
+    end
+  end
+
   expose(:project) { current_user.project }
   expose(:tasks) { project.tasks }
   expose(:task)
@@ -25,10 +32,15 @@ class TasksController < ApplicationController
   end
 
   def create
-  	current_user = User.find_by_uri params[:task][:client_uri]
-  	project = current_user.project
-  	if(project.is_admin?(@current_user))
-  		project.add_task(@task)
+    task = Task.new task_params # cant make decent exposure to expose it correctly - for further look
+
+  	if project.is_admin?(current_user)
+      
+      task.project = project
+      task.client_uri = params[:task][:client_uri]
+
+      logger.debug task.attributes.inspect
+      
   		if task.save
   			tasks = project.tasks
 	      respond_to do |format|

@@ -34,6 +34,8 @@ var chosenY;
 var actualTask;
 var createdTasks = [];
 
+var userUri;
+
 /* -------------------------- Classes declaration ---------------------------------*/
 
 // ---------------- Task class ---------------- 
@@ -344,4 +346,30 @@ $(document).ready(function() {
   		};
   		isDragged = false;
 	});
+
+	function getAllTasksFromAPI(UserUri)
+	{
+		$.ajax({
+			type: "GET",
+			dataType: "json",
+			url: "http://localhost:3000/tasks",
+			data: { client_uri: UserUri }
+		})
+		.done(function(response) {
+			for(var i = 0; i < response.length; i++)
+			{
+				console.log("Got task number " + i + " => name: " + response[i]['name'] + "; start_date: " + response[i]['start_date'] + "; end_date: " + response[i]['end_date']); 
+			}
+		});
+	};
+
+	function updateUserUri()
+	{
+		userUri = window.location.href;
+		var temporaryUserUriTable = userUri.split("/");
+		userUri = temporaryUserUriTable[temporaryUserUriTable.length - 1];
+	}
+
+	updateUserUri();
+	getAllTasksFromAPI(userUri);
 });

@@ -1,17 +1,17 @@
-<%= form_for @task, remote: true do |f| %>
+<%= form_for task, remote: true do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
 
   <%= f.label :name %>
   <%= f.text_field :name %>
 
   <%= f.label :user %>
-  <%= f.collection_select :user_id, @project.users, :id, :name, prompt: true %>
+  <%= f.collection_select :user_id, project.users, :id, :name, prompt: true %>
 
-  <%= f.hidden_field :start_date, :value => params[:start_date] %>
+  <%= f.date_field :start_date, :value => params[:start_date] %>
 
-  <%= f.hidden_field :end_date, :value => params[:end_date] %>
+  <%= f.date_field :end_date, :value => params[:end_date] %>
 
-  <%= f.hidden_field :client_uri, :value => @task.client_uri %>
+  <%= f.hidden_field :client_uri, :value => task.client_uri %>
 
   <%= f.submit "Create new task", class: "btn btn-large btn-primary" %>
 <% end %>
